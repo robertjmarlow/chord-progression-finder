@@ -1,4 +1,5 @@
-/bin
 /.bundle
 /.yardoc
+/bin
+/coverage
 /doc
