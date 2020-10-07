@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
+# Represents a single note on the {https://en.wikipedia.org/wiki/Chromatic_scale Chromatic Scale}.
 class Note
-  @@all_tones = %i[a b c d e f g]
-  @@all_accidetals = %i[sharp natural flat]
+  attr_reader :tone, :accidental
 
-  attr_reader :tone
-  attr_reader :accidental
-
+  # @param tone [Symbol] The tone of the note. Only a through g are accepted.
+  # @param accidental [Symbol] Whether the note is sharp, natural, or flat.
+  # @raise [ArgumentError] if the note's tone or accidental is illegal _or_ if the note is impossible (e.g. b sharp).
   def initialize(tone:, accidental: :natural)
-    raise ArgumentError, "#{tone} is not a valid tone. Tones can only be A-G." unless @@all_tones.include?(tone)
-    unless @@all_accidetals.include?(accidental)
+    raise ArgumentError, "#{tone} is not a valid tone. Tones can only be A-G." unless %i[a b c d e f g].include?(tone)
+    unless %i[sharp natural flat].include?(accidental)
       raise ArgumentError, "#{accidental} is not a valid accidental. Accidentals can only be sharp, natural, or flat."
     end
 
@@ -20,9 +20,10 @@ class Note
   def to_s
     note_string = tone.upcase.to_s
 
-    if @accidental == :flat
+    case accidental
+    when :flat
       note_string << '♭'
-    elsif @accidental == :sharp
+    when :sharp
       note_string << '♯'
     end
 
