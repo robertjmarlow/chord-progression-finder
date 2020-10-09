@@ -18,8 +18,21 @@ puts 'e.g.: C for C major, Gm for G minor, F# for F# major'
 input_arr = gets.chomp.match(/([A-G])([#b])?(m)?/)
 
 if !input_arr.nil? && !input_arr[1].nil?
-  puts 'Your chord progression is:'
-  puts ChordProgression.create(key: Key.new(note: Note.new(tone: input_arr[1].downcase.to_sym))).to_s
+  accidental = :natural
+  interval = input_arr[3].nil? ? :major : :minor
+
+  if !input_arr[2].nil?
+    case input_arr[2]
+    when '#'
+      accidental = :sharp
+    when 'b'
+      accidental = :flat
+    end
+  end
+
+  chord_progression_key = Key.new(note: Note.new(tone: input_arr[1].downcase.to_sym, accidental: accidental), interval: interval)
+  puts "Your chord progression for #{chord_progression_key} is:"
+  puts ChordProgression.create(key: chord_progression_key).to_s
 else
   puts 'Only notes A through G are valid'
 end
