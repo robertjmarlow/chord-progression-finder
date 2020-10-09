@@ -15,6 +15,18 @@ RSpec.describe ChordProgression do
     expect(progression.to_s).to eq('G D Em C')
   end
 
+  it 'creates an F major chord progression' do
+    progression = ChordProgression.create(key: Key.new(note: Note.new(tone: :f)))
+
+    expect(progression.to_s).to eq('F C Dm A♯')
+  end
+
+  it 'creates a C minor chord progression' do
+    progression = ChordProgression.create(key: Key.new(note: Note.new(tone: :c), interval: :minor))
+
+    expect(progression.to_s).to eq('Cm Gm G♯ Fm')
+  end
+
   it 'creates an E minor chord progression' do
     progression = ChordProgression.create(key: Key.new(note: Note.new(tone: :e), interval: :minor))
 
