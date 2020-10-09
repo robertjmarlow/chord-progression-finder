@@ -25,4 +25,6 @@ rake build_all
 
 # Running
 
-TODO
+```sh
+ruby ./demo/demo.rb
+```
