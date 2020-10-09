@@ -10,6 +10,7 @@ class Chord
   # @param interval [Symbol] Whether the chord is major, minor, or diminished.
   # @raise [ArgumentError] if the interval is anything except major, minor, or diminished.
   def initialize(note:, interval: :major)
+    # TODO: figure out all the notes in this chord?
     unless VALID_INTERVALS.include?(interval)
       raise ArgumentError, "#{interval} is not a valid interval. Intervals can only be major, minor, or diminished."
     end

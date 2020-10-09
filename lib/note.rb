@@ -32,4 +32,16 @@ class Note
 
     note_string
   end
+
+  def hash
+    puts "in hash"
+    tone ^ accidental
+  end
+
+  def eql?(other_note)
+    # puts "in eql?"
+    # TODO: technically, F# == Gb, so..... yeah fix that
+    tone == other_note.tone && accidental == other_note.accidental
+  end
+  alias :== eql?
 end
