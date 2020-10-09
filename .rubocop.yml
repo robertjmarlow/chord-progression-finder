@@ -3,3 +3,8 @@ AllCops:
     - 'bin/**'
     - 'Rakefile'
   NewCops: enable
+Metrics/AbcSize:
+  Exclude:
+    # enforcing the chord progression rules via a bunch of assignments
+    # is honestly the KISS-est way of doing it
+    - 'lib/chord_progression.rb'

@@ -44,22 +44,22 @@ class ChordProgression
     chords.join(' ')
   end
 
-  private
-
   def self.get_all_chords_for_key(key:)
-    all_chords = {}
+    note_idx = CHROMATIC_SCALE.find_index(key.note)
+    chromatic_scale = CHROMATIC_SCALE.rotate(note_idx)
 
-    noteIdx = CHROMATIC_SCALE.find_index(key.note)
-    chromaticScale = CHROMATIC_SCALE.rotate(noteIdx)
-
-    all_chords[:I] = Chord.new(note: chromaticScale[0], interval: :major)
-    all_chords[:ii] = Chord.new(note: chromaticScale[2], interval: :minor)
-    all_chords[:iii] = Chord.new(note: chromaticScale[4], interval: :minor)
-    all_chords[:IV] = Chord.new(note: chromaticScale[5], interval: :major)
-    all_chords[:V] = Chord.new(note: chromaticScale[7], interval: :major)
-    all_chords[:vi] = Chord.new(note: chromaticScale[9], interval: :minor)
-    all_chords[:vii] = Chord.new(note: chromaticScale[11], interval: :diminished)
-
-    return all_chords
+    # the index into the chromatic scale follows the intervals from the root note;
+    #  +1 index is a semitone
+    # the roman numerals follow:
+    #  https://en.wikipedia.org/wiki/Roman_numeral_analysis#Diatonic_scales
+    # the major, minor, dim pattern follow :
+    #  https://en.wikipedia.org/wiki/Major_scale#Triad_qualities
+    { I: Chord.new(note: chromatic_scale[0], interval: :major),
+      ii: Chord.new(note: chromatic_scale[2], interval: :minor),
+      iii: Chord.new(note: chromatic_scale[4], interval: :minor),
+      IV: Chord.new(note: chromatic_scale[5], interval: :major),
+      V: Chord.new(note: chromatic_scale[7], interval: :major),
+      vi: Chord.new(note: chromatic_scale[9], interval: :minor),
+      vii: Chord.new(note: chromatic_scale[11], interval: :diminished) }
   end
 end
