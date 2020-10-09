@@ -3,13 +3,24 @@ AllCops:
     - 'bin/**'
     - 'Rakefile'
   NewCops: enable
+# REASONS FOR EXCLUSIONS:
+# 1. enforcing the chord progression rules via a bunch of assignments
+#    is honestly the KISS-est way of doing it
+# 2. checking for "illegal" notes results in a super ugly switch statement
+# 3. sorry for having lots of unit tests
 Metrics/MethodLength:
   Exclude:
-    # enforcing the chord progression rules via a bunch of assignments
-    # is honestly the KISS-est way of doing it
     - 'lib/chord_progression.rb'
+    - 'lib/note.rb'
 Metrics/AbcSize:
   Exclude:
-    # enforcing the chord progression rules via a bunch of assignments
-    # is honestly the KISS-est way of doing it
     - 'lib/chord_progression.rb'
+Metrics/CyclomaticComplexity:
+  Exclude:
+    - 'lib/note.rb'
+Metrics/PerceivedComplexity:
+  Exclude:
+    - 'lib/note.rb'
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**'

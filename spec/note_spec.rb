@@ -34,4 +34,11 @@ RSpec.describe Note do
   it 'throws an exception if an illegal accidental is specified' do
     expect { Note.new(tone: :a, accidental: :super_sharp) }.to raise_error(ArgumentError)
   end
+
+  it 'throws an exception if an illegal note attempts to be created' do
+    expect { Note.new(tone: :e, accidental: :sharp) }.to raise_error(ArgumentError)
+    expect { Note.new(tone: :f, accidental: :flat) }.to raise_error(ArgumentError)
+    expect { Note.new(tone: :b, accidental: :sharp) }.to raise_error(ArgumentError)
+    expect { Note.new(tone: :c, accidental: :flat) }.to raise_error(ArgumentError)
+  end
 end

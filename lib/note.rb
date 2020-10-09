@@ -15,9 +15,26 @@ class Note
     unless VALID_ACCIDENTALS.include?(accidental)
       raise ArgumentError, "#{accidental} is not a valid accidental. Accidentals can only be sharp, natural, or flat."
     end
+    unless valid_note?(tone: tone, accidental: accidental)
+      raise ArgumentError, "#{tone} #{accidental} is a non-existent note."
+    end
 
     @tone = tone
     @accidental = accidental
+  end
+
+  def valid_note?(tone:, accidental:)
+    if tone == :e && accidental == :sharp
+      false
+    elsif tone == :f && accidental == :flat
+      false
+    elsif tone == :b && accidental == :sharp
+      false
+    elsif tone == :c && accidental == :flat
+      false
+    else
+      true
+    end
   end
 
   def to_s
