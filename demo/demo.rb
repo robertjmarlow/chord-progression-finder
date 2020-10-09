@@ -1,13 +1,7 @@
 # frozen_string_literal: true
 
-# puts $LOAD_PATH
-# $LOAD_PATH << '../lib'
-$LOAD_PATH << '/home/rob/git/chord-progression-finder/lib'
-# puts $LOAD_PATH
+$LOAD_PATH << File.expand_path('../lib', __dir__)
 
-# puts __FILE__
-
-# require_relative '../lib/chord_progression'
 require 'chord_progression'
 require 'key'
 require 'note'
@@ -15,7 +9,7 @@ require 'note'
 puts 'What key do you want a chord progression for?'
 puts 'e.g.: C for C major, Gm for G minor, F# for F# major'
 
-input_arr = gets.chomp.match(/([A-G])([#b])?(m)?/)
+input_arr = gets.chomp.match(/([A-Ga-g])([#b])?(m)?/)
 
 if !input_arr.nil? && !input_arr[1].nil?
   accidental = :natural
