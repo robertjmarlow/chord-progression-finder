@@ -32,10 +32,21 @@ class ChordProgression
     all_chords = get_all_chords_for_key(key: key)
     chords_in_progression = []
 
-    chords_in_progression << all_chords[:I]
-    chords_in_progression << all_chords[:V]
-    chords_in_progression << all_chords[:vi]
-    chords_in_progression << all_chords[:IV]
+    case key.interval
+    when :major
+      # this is a pretty popular progression
+      # https://en.wikipedia.org/wiki/List_of_songs_containing_the_I%E2%80%93V%E2%80%93vi%E2%80%93IV_progression
+      chords_in_progression << all_chords[:I]
+      chords_in_progression << all_chords[:V]
+      chords_in_progression << all_chords[:vi]
+      chords_in_progression << all_chords[:IV]
+    when :minor
+      # same as above but minor-ized
+      chords_in_progression << all_chords[:i]
+      chords_in_progression << all_chords[:v]
+      chords_in_progression << all_chords[:VI]
+      chords_in_progression << all_chords[:iv]
+    end
 
     ChordProgression.new(chords: chords_in_progression)
   end
@@ -52,14 +63,23 @@ class ChordProgression
     #  +1 index is a semitone
     # the roman numerals follow:
     #  https://en.wikipedia.org/wiki/Roman_numeral_analysis#Diatonic_scales
-    # the major, minor, dim pattern follow :
-    #  https://en.wikipedia.org/wiki/Major_scale#Triad_qualities
-    { I: Chord.new(note: chromatic_scale[0], interval: :major),
-      ii: Chord.new(note: chromatic_scale[2], interval: :minor),
-      iii: Chord.new(note: chromatic_scale[4], interval: :minor),
-      IV: Chord.new(note: chromatic_scale[5], interval: :major),
-      V: Chord.new(note: chromatic_scale[7], interval: :major),
-      vi: Chord.new(note: chromatic_scale[9], interval: :minor),
-      vii: Chord.new(note: chromatic_scale[11], interval: :diminished) }
+    case key.interval
+    when :major
+      { I: Chord.new(note: chromatic_scale[0], interval: :major),
+        ii: Chord.new(note: chromatic_scale[2], interval: :minor),
+        iii: Chord.new(note: chromatic_scale[4], interval: :minor),
+        IV: Chord.new(note: chromatic_scale[5], interval: :major),
+        V: Chord.new(note: chromatic_scale[7], interval: :major),
+        vi: Chord.new(note: chromatic_scale[9], interval: :minor),
+        vii: Chord.new(note: chromatic_scale[11], interval: :diminished) }
+    when :minor
+      { i: Chord.new(note: chromatic_scale[0], interval: :minor),
+        ii: Chord.new(note: chromatic_scale[2], interval: :diminished),
+        III: Chord.new(note: chromatic_scale[3], interval: :major),
+        iv: Chord.new(note: chromatic_scale[5], interval: :minor),
+        v: Chord.new(note: chromatic_scale[7], interval: :minor),
+        VI: Chord.new(note: chromatic_scale[8], interval: :major),
+        VII: Chord.new(note: chromatic_scale[10], interval: :major) }
+    end
   end
 end
