@@ -6,6 +6,7 @@ require 'chord'
 # Creates a chord progression that uses the {https://en.wikipedia.org/wiki/Circle_of_fifths Circle of fifths}
 # to make the chords sound nice together.
 class ChordProgression
+  # all twelve notes of the chromatic scale
   CHROMATIC_SCALE = [
     Note.new(tone: :c),
     Note.new(tone: :c, accidental: :sharp),
@@ -23,11 +24,15 @@ class ChordProgression
 
   attr_reader :chords
 
+  # @param chords [Array] Array of {Chord}s that comprise this chord progression.
   def initialize(chords:)
     # TODO: make this private? https://stackoverflow.com/a/1567476
     @chords = chords
   end
 
+  # Creates a bunch of chords that sound good together.
+  # @param key [Key] The {Key} to create the chord progression in.
+  # @return [Array] An array of {Chord}s that sound good together in the specified key.
   def self.create(key:)
     all_chords = get_all_chords_for_key(key: key)
     chords_in_progression = []
@@ -55,6 +60,10 @@ class ChordProgression
     chords.join(' ')
   end
 
+  # Get all chords for the specified key.
+  # @param key [Key] The {Key} to get all {Chord}s of.
+  # @return [Hash] All the {Chord}s in the specified key. The keys for the returned Hash will follow
+  #         {https://en.wikipedia.org/wiki/Roman_numeral_analysis#Diatonic_scales Roman Numeral Analysis}.
   def self.get_all_chords_for_key(key:)
     note_idx = CHROMATIC_SCALE.find_index(key.note)
     chromatic_scale = CHROMATIC_SCALE.rotate(note_idx)

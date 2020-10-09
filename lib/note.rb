@@ -2,7 +2,10 @@
 
 # Represents a single note on the {https://en.wikipedia.org/wiki/Chromatic_scale Chromatic Scale}.
 class Note
+  # valid tones for a note
   VALID_TONES = %i[a b c d e f g].freeze
+
+  # valid accidentals for a note
   VALID_ACCIDENTALS = %i[sharp natural flat].freeze
 
   attr_reader :tone, :accidental
@@ -23,6 +26,8 @@ class Note
     @accidental = accidental
   end
 
+  # Determines whether or not the note is valid. e.g. an Esharp doesn't exist.
+  # @return Whether or note the note is valid.
   def valid_note?(tone:, accidental:)
     if tone == :e && accidental == :sharp
       false

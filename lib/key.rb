@@ -2,6 +2,7 @@
 
 # Represents a {https://en.wikipedia.org/wiki/Key_signature Key Signature}.
 class Key
+  # valid intervals for a key
   VALID_INTERVALS = %i[major minor].freeze
 
   attr_reader :note, :interval

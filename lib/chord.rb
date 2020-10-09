@@ -2,6 +2,7 @@
 
 # Represents a chord
 class Chord
+  # valid intervals for a chord
   VALID_INTERVALS = %i[major minor diminished].freeze
 
   attr_reader :note, :interval
