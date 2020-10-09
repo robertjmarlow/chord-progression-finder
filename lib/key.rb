@@ -2,13 +2,15 @@
 
 # Represents a {https://en.wikipedia.org/wiki/Key_signature Key Signature}.
 class Key
+  VALID_INTERVALS = %i[major minor].freeze
+
   attr_reader :note, :interval
 
   # @param note [Note] The note of the key.
   # @param interval [Symbol] Whether the key is major or minor.
   # @raise [ArgumentError] if the interval is anything except major or minor.
   def initialize(note:, interval: :major)
-    unless %i[major minor].include?(interval)
+    unless VALID_INTERVALS.include?(interval)
       raise ArgumentError, "#{interval} is not a valid interval. Intervals can only be major or minor."
     end
 
