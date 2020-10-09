@@ -21,7 +21,7 @@ if !input_arr.nil? && !input_arr[1].nil?
   accidental = :natural
   interval = input_arr[3].nil? ? :major : :minor
 
-  if !input_arr[2].nil?
+  unless input_arr[2].nil?
     case input_arr[2]
     when '#'
       accidental = :sharp
@@ -30,7 +30,9 @@ if !input_arr.nil? && !input_arr[1].nil?
     end
   end
 
-  chord_progression_key = Key.new(note: Note.new(tone: input_arr[1].downcase.to_sym, accidental: accidental), interval: interval)
+  chord_progression_key =
+    Key.new(note: Note.new(tone: input_arr[1].downcase.to_sym, accidental: accidental), interval: interval)
+
   puts "Your chord progression for #{chord_progression_key} is:"
   puts ChordProgression.create(key: chord_progression_key).to_s
 else
